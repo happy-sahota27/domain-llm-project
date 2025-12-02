@@ -1,0 +1,64 @@
+model:
+  name: "mistralai/Mistral-7B-v0.1"
+  max_seq_length: 2048
+  domain: "healthcare"  # or "legal", "finance"
+
+training:
+  # LoRA settings
+  lora_r: 64
+  lora_alpha: 16
+  lora_dropout: 0.05
+  lora_target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+    - "gate_proj"
+    - "up_proj"
+    - "down_proj"
+  
+  # Quantization
+  use_4bit: true
+  bnb_4bit_compute_dtype: "bfloat16"
+  bnb_4bit_quant_type: "nf4"
+  use_nested_quant: true
+  
+  # Training hyperparameters
+  num_train_epochs: 3
+  per_device_train_batch_size: 4
+  per_device_eval_batch_size: 4
+  gradient_accumulation_steps: 4
+  learning_rate: 0.0002
+  weight_decay: 0.01
+  max_grad_norm: 0.3
+  warmup_ratio: 0.03
+  
+  # Optimization
+  optim: "paged_adamw_32bit"
+  lr_scheduler_type: "cosine"
+  
+  # Checkpointing
+  logging_steps: 10
+  save_steps: 100
+  eval_steps: 100
+  save_total_limit: 3
+  
+  # Advanced
+  fp16: false
+  bf16: true
+  gradient_checkpointing: true
+  group_by_length: true
+  
+  # Output
+  output_dir: "models/checkpoints"
+  
+  # Random seed
+  seed: 42
+
+dataset:
+  text_field: "text"
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+  max_length: 2048
+  min_length: 10

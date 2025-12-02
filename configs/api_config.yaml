@@ -1,0 +1,44 @@
+api:
+  title: "Domain LLM API"
+  description: "API for fine-tuned domain-specific language models"
+  version: "1.0.0"
+  
+  server:
+    host: "0.0.0.0"
+    port: 8000
+    workers: 1
+    reload: false
+  
+  cors:
+    allow_origins:
+      - "*"
+    allow_credentials: true
+    allow_methods:
+      - "*"
+    allow_headers:
+      - "*"
+  
+  model:
+    type: "quantized"  # or "standard"
+    path: "models/quantized/model-q4_k_m.gguf"
+    context_length: 2048
+    
+  generation:
+    default_max_tokens: 256
+    default_temperature: 0.7
+    default_top_p: 0.9
+    default_top_k: 50
+    max_batch_size: 10
+  
+  reranker:
+    enabled: true
+    model_path: "models/reranker"
+    default_top_k: 5
+  
+  logging:
+    level: "INFO"
+    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+  rate_limiting:
+    enabled: false
+    requests_per_minute: 60

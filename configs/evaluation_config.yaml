@@ -1,0 +1,51 @@
+evaluation:
+  # Generation settings
+  max_new_tokens: 256
+  temperature: 0.7
+  top_p: 0.9
+  top_k: 50
+  
+  # Metrics to compute
+  metrics:
+    - "accuracy"
+    - "token_accuracy"
+    - "perplexity"
+    - "rouge"
+    - "bleu"
+    - "f1"
+  
+  # ROUGE settings
+  rouge_types:
+    - "rouge1"
+    - "rouge2"
+    - "rougeL"
+  
+  # Output
+  output_dir: "results/evaluation"
+  save_predictions: true
+  
+  # Benchmark settings
+  benchmark_speed: true
+  benchmark_runs: 3
+
+comparison:
+  # Models to compare
+  models:
+    - name: "lora_model"
+      path: "models/checkpoints/lora"
+    - name: "full_finetune"
+      path: "models/checkpoints/full"
+    - name: "base_model"
+      path: "mistralai/Mistral-7B-v0.1"
+  
+  # Comparison metrics
+  comparison_metrics:
+    - "perplexity"
+    - "accuracy"
+    - "f1"
+    - "rouge1"
+    - "training_time"
+    - "memory_usage"
+    - "inference_speed"
+  
+  output_dir: "results/comparison"
