@@ -329,25 +329,67 @@ Answer: {answer}"""
         samples = []
         
         if self.domain == "healthcare":
+            healthcare_examples = [
+                ("What is hypertension?", "Hypertension, or high blood pressure, is a condition where the force of blood against artery walls is too high."),
+                ("What are the symptoms of diabetes?", "Common symptoms of diabetes include increased thirst, frequent urination, extreme hunger, unexplained weight loss, and fatigue."),
+                ("Explain asthma.", "Asthma is a chronic respiratory condition characterized by inflammation and narrowing of the airways, causing difficulty breathing."),
+                ("What is a heart attack?", "A heart attack occurs when blood flow to part of the heart is blocked, usually by a blood clot, causing damage to heart muscle."),
+                ("Define arthritis.", "Arthritis is inflammation of one or more joints, causing pain, stiffness, and reduced range of motion."),
+                ("What causes pneumonia?", "Pneumonia is an infection that inflames air sacs in the lungs, caused by bacteria, viruses, or fungi."),
+                ("Explain migraine headaches.", "Migraines are severe, recurring headaches often accompanied by nausea, vomiting, and sensitivity to light and sound."),
+                ("What is osteoporosis?", "Osteoporosis is a condition where bones become weak and brittle, increasing the risk of fractures."),
+                ("Define anemia.", "Anemia is a condition where the body lacks enough healthy red blood cells to carry adequate oxygen to tissues."),
+                ("What is tuberculosis?", "Tuberculosis (TB) is a bacterial infection that primarily affects the lungs, causing cough, fever, and chest pain."),
+            ]
             for i in range(num_samples):
+                idx = i % len(healthcare_examples)
+                question, answer = healthcare_examples[idx]
                 samples.append({
                     "instruction": "Explain the medical condition",
-                    "input": f"What is hypertension?",
-                    "output": f"Hypertension, or high blood pressure, is a condition where the force of blood against artery walls is too high."
+                    "input": f"{question} (Example {i+1})",
+                    "output": answer
                 })
         elif self.domain == "legal":
+            legal_examples = [
+                ("What is tort law?", "Tort law is a branch of civil law that addresses breaches of civil duties owed to others."),
+                ("Define contract law.", "Contract law governs legally binding agreements between parties and the remedies available if contracts are breached."),
+                ("What is negligence?", "Negligence is the failure to exercise reasonable care, resulting in damage or injury to another person."),
+                ("Explain intellectual property.", "Intellectual property refers to creations of the mind, including inventions, literary works, and symbols, protected by law."),
+                ("What is criminal law?", "Criminal law defines offenses against the state or public, prescribing punishment for those who commit crimes."),
+                ("Define defamation.", "Defamation is the act of damaging someone's reputation through false statements communicated to others."),
+                ("What is jurisdiction?", "Jurisdiction is the official power of a court to make legal decisions and judgments over particular areas or people."),
+                ("Explain due process.", "Due process is the legal requirement that the state must respect all rights owed to a person under the law."),
+                ("What is a precedent?", "A legal precedent is a previous case decision that serves as an example or rule for future similar cases."),
+                ("Define liability.", "Liability is legal responsibility for one's acts or omissions, which can result in a duty to pay damages or provide remedies."),
+            ]
             for i in range(num_samples):
+                idx = i % len(legal_examples)
+                question, answer = legal_examples[idx]
                 samples.append({
                     "instruction": "Explain the legal term",
-                    "input": f"What is tort law?",
-                    "output": f"Tort law is a branch of civil law that addresses breaches of civil duties owed to others."
+                    "input": f"{question} (Example {i+1})",
+                    "output": answer
                 })
         elif self.domain == "finance":
+            finance_examples = [
+                ("What is compound interest?", "Compound interest is interest calculated on the initial principal and accumulated interest from previous periods."),
+                ("Define inflation.", "Inflation is the rate at which the general level of prices for goods and services rises, eroding purchasing power."),
+                ("What is a stock?", "A stock represents ownership in a company and constitutes a claim on part of the company's assets and earnings."),
+                ("Explain diversification.", "Diversification is a risk management strategy that involves spreading investments across various assets to reduce exposure."),
+                ("What are bonds?", "Bonds are debt securities where an investor loans money to an entity in exchange for periodic interest payments and principal repayment."),
+                ("Define liquidity.", "Liquidity refers to how quickly and easily an asset can be converted into cash without significantly affecting its price."),
+                ("What is ROI?", "Return on Investment (ROI) is a measure of the profitability of an investment, calculated as net profit divided by cost."),
+                ("Explain asset allocation.", "Asset allocation is the strategy of dividing investments among different asset categories like stocks, bonds, and cash."),
+                ("What is a mutual fund?", "A mutual fund pools money from many investors to purchase a diversified portfolio of stocks, bonds, or other securities."),
+                ("Define market capitalization.", "Market capitalization is the total market value of a company's outstanding shares, calculated by multiplying share price by total shares."),
+            ]
             for i in range(num_samples):
+                idx = i % len(finance_examples)
+                question, answer = finance_examples[idx]
                 samples.append({
                     "instruction": "Explain the financial concept",
-                    "input": f"What is compound interest?",
-                    "output": f"Compound interest is interest calculated on the initial principal and accumulated interest from previous periods."
+                    "input": f"{question} (Example {i+1})",
+                    "output": answer
                 })
         
         return self.create_instruction_dataset(samples)
